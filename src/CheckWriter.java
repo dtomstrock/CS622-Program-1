@@ -13,6 +13,7 @@ public class CheckWriter {
 		
 		String inputNumber;
 		Number n1 = new Number();
+		
 
 		System.out.println("Enter the amount of the check you wish to write: ");
 
