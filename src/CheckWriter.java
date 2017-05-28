@@ -5,68 +5,73 @@
  * 2/18/17: Class tested - minor changes made to delete redundant code
  */
 
-import java.util.Scanner;
 
-public class CheckWriter {
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class CheckWriter extends Application {
+	
+	public static Color[] rectColors = {Color.AZURE, Color.LIGHTCYAN, Color.PLUM};
+	static int currentColorIndex = 0;
+	Rectangle rect = new Rectangle();
+
 
 	public static void main(String[] args) {
 		
-		String inputNumber;
-		Number n1 = new Number();
+		Application.launch(args);
 		
-
-		System.out.println("Enter the amount of the check you wish to write: ");
-
-		Scanner keyboard = new Scanner(System.in);
-		inputNumber = keyboard.nextLine();
+	}
+	
+	@Override
+	public void start(Stage primaryStage) {
+		primaryStage.setTitle("My Cool Window");
 		
-		String dollarAmountStr = "";
-		int dollarAmount = 0;
-		String centsAmountStr = "";
-		int centsAmount = 0;
+		Group root = new Group();
+		Scene scene = new Scene(root, 400, 600);
 		
-		//extract substring of dollars and convert to int
-		//extract substring of cents and convert to int
-		//if dollar amount is not positive or cents amount exceeds 99, ask user to try again
-		//exit program if user has three unsuccessful attempts
-		int inputAttempts = 0;
-		do {
-			if(inputAttempts == 3) {
-				System.out.println("Too many unsuccessful attempts. Program terminated.");
-				System.exit(0);
+		buildRectangle(root);
+		buildButton(root, rect);
+		
+		primaryStage.setScene(scene);
+		primaryStage.show();
+	}
+	
+	private void buildRectangle(Group argRoot){
+		rect.setX(50);
+		rect.setY(50);
+		rect.setWidth(100);
+		rect.setHeight(50);
+		rect.setFill(Color.CHARTREUSE);
+		
+		argRoot.getChildren().add(rect);
+	}
+	
+	private  void buildButton(Group argRoot, Rectangle argRect) {
+		Button colorButton = new Button();
+		colorButton.setLayoutX(200);
+		colorButton.setLayoutY(300);
+		colorButton.setText("CB");
+		colorButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				currentColorIndex++;
+				if(currentColorIndex >= rectColors.length)
+					currentColorIndex = 0;
+				scrollThroughArray(currentColorIndex, rect);
+				System.out.println(currentColorIndex);
 			}
-			
-			if(inputAttempts > 0) {
-				System.out.println("You must enter a valid number.");
-				System.out.println("Try again: ");
-				inputNumber = keyboard.nextLine();
-			}
-			
-			if(inputNumber.contains(".")) {
-				dollarAmountStr = inputNumber.substring(0, inputNumber.indexOf('.'));
-				dollarAmount = Integer.parseInt(dollarAmountStr);
-				centsAmountStr = inputNumber.substring(inputNumber.indexOf(".") + 1);
-				if(centsAmountStr.length() == 1)
-					centsAmount = Integer.parseInt(centsAmountStr) * 10;
-				else
-					centsAmount = Integer.parseInt(centsAmountStr);
-			}
-			else {
-				dollarAmount = Integer.parseInt(inputNumber);
-			}
-			
-			inputAttempts++;
-		} while(dollarAmount < 0 || centsAmount > 99 || dollarAmount > 999999 || (dollarAmount == 0 && centsAmount == 0));
-		
-		keyboard.close();
-		
-		if(centsAmount > 0)
-			n1 = new Number(dollarAmount, centsAmount);
-		else
-			n1 = new Number(dollarAmount);
-		
-		System.out.println(n1.getFullCheck());
-		
+		});
+		argRoot.getChildren().add(colorButton);
+	}
+	
+	private void scrollThroughArray(int argIndex, Rectangle argRect) {
+		argRect.setFill(rectColors[argIndex]);
 	}
 	
 }
