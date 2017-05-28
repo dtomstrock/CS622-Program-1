@@ -15,7 +15,7 @@ public class Number {
 	private String numberAsWords;
 	private String fullCheck;
 	
-	private String [] numbersToNineteen = {"zero ", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ", 
+	private String [] numbersToNineteen = {"Zero ", "One ", "Two ", "three ", "four ", "five ", "six ", "seven ", "eight ", 
 			"nine ", "ten ", "eleven ", "twelve ", "thirteen ", "fourteen ", "fifteen ", "sixteen ", "seventeen ", 
             "eighteen ", "ninteteen "};
 
