@@ -50,6 +50,31 @@ public class Number {
 		return NumberFormat.getIntegerInstance().format(number);
 	}
 	
+	public String DoFullConversion(double amount){
+		
+		String dollarAmountStr, centsAmountStr;
+		int dollarAmount, centsAmount;
+		String amountStr = Double.toString(amount);
+		
+		if(amountStr.contains(".")) {
+			dollarAmountStr = amountStr.substring(0, amountStr.indexOf('.'));
+			dollarAmount = Integer.parseInt(dollarAmountStr);
+			centsAmountStr = amountStr.substring(amountStr.indexOf(".") + 1);
+			if(centsAmountStr.length() == 1)
+				centsAmount = Integer.parseInt(centsAmountStr) * 10;
+			else
+				centsAmount = Integer.parseInt(centsAmountStr);
+			
+			numberAsWords = convertDollarsToWords(dollarAmount) + " dollars and " + convertCentsToWords(centsAmount) + " cents";
+		}
+		else {
+			dollarAmount = (int) amount;
+			numberAsWords = convertDollarsToWords(dollarAmount) + " dollars and zero cents";
+		}
+		
+		return numberAsWords;
+	}
+	
 	/** Convert input number (with both dollars and cents) to a formatted number with commas) */
 	private String convertToFormatted(int dollars, int cents) {
 		String tempDollar = NumberFormat.getIntegerInstance().format(dollars);
@@ -60,8 +85,6 @@ public class Number {
 			tempCents = NumberFormat.getInstance().format(cents);
 		return tempDollar + "." + tempCents;
 	}
-
-
 	
 	/** Convert dollars to words */
 	private String convertDollarsToWords(int number) {
