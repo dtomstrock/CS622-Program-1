@@ -21,6 +21,10 @@ public class CheckWriter extends Application {
 	public static Color[] rectColors = {Color.AZURE, Color.LIGHTCYAN, Color.PLUM};
 	static int currentColorIndex = 0;
 	Rectangle rect = new Rectangle();
+	int rectXLocation = 50;
+	Group root = new Group();
+	Scene scene = new Scene(root, 400, 600);
+
 
 
 	public static void main(String[] args) {
@@ -33,18 +37,17 @@ public class CheckWriter extends Application {
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("My Cool Window");
 		
-		Group root = new Group();
-		Scene scene = new Scene(root, 400, 600);
 		
 		buildRectangle(root);
-		buildButton(root, rect);
+		buildColorButton(root, rect);
+		buildMoveRightButton(root, rect);
 		
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
 	
 	private void buildRectangle(Group argRoot){
-		rect.setX(50);
+		rect.setX(rectXLocation);
 		rect.setY(50);
 		rect.setWidth(100);
 		rect.setHeight(50);
@@ -53,7 +56,7 @@ public class CheckWriter extends Application {
 		argRoot.getChildren().add(rect);
 	}
 	
-	private  void buildButton(Group argRoot, Rectangle argRect) {
+	private  void buildColorButton(Group argRoot, Rectangle argRect) {
 		Button colorButton = new Button();
 		colorButton.setLayoutX(200);
 		colorButton.setLayoutY(300);
@@ -68,6 +71,20 @@ public class CheckWriter extends Application {
 			}
 		});
 		argRoot.getChildren().add(colorButton);
+	}
+	
+	private void buildMoveRightButton(Group argRoot, Rectangle argRect){
+		Button moveRightButton = new Button();
+		moveRightButton.setLayoutX(300);
+		moveRightButton.setLayoutY(400);
+		moveRightButton.setText("Go Right");
+		moveRightButton.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				rectXLocation += 10;
+				rect.setX(rectXLocation);
+			}
+		});
+		argRoot.getChildren().add(moveRightButton);
 	}
 	
 	private void scrollThroughArray(int argIndex, Rectangle argRect) {
