@@ -1,8 +1,9 @@
 
 public class Person {
 	
-	private String firstName, lastName;
-	private double amountOfMoney;
+
+	public String firstName, lastName;
+	public double amountOfMoney;
 	
 	public Person() {
 		firstName = "first";
