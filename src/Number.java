@@ -15,7 +15,7 @@ public class Number {
 	private String numberAsWords;
 	private String fullCheck;
 	
-	private String [] numbersToNineteen = {"Zero ", "One ", "Two ", "three ", "four ", "five ", "six ", "seven ", "eight ", 
+	private String [] numbersToNineteen = {"Zero ", "one ", "two ", "three ", "four ", "five ", "six ", "seven ", "eight ", 
 			"nine ", "ten ", "eleven ", "twelve ", "thirteen ", "fourteen ", "fifteen ", "sixteen ", "seventeen ", 
             "eighteen ", "ninteteen "};
 
@@ -61,6 +61,8 @@ public class Number {
 		return tempDollar + "." + tempCents;
 	}
 
+
+	
 	/** Convert dollars to words */
 	private String convertDollarsToWords(int number) {
 		String numberAsWords = "";
@@ -104,6 +106,8 @@ public class Number {
 		return numberAsWords;
 	}
 	
+
+	
 	/** Convert cents to words */
 	private String convertCentsToWords(int cents) {
 		String numberAsWords = "";
@@ -123,8 +127,12 @@ public class Number {
 	/** Format dollar and cents as words to remove extra words and spaces */
 	private String removeExtraWordsAndSpaces(String phrase) {
 		phrase = phrase.replaceAll("-zero", "");
+		phrase = phrase.replaceAll("-Zero", "");
 		phrase = phrase.replaceAll("zero hundred", "");
+		phrase = phrase.replaceAll("Zero hundred", "");
 		phrase = phrase.replaceAll("zero thousand", "");
+		phrase = phrase.replaceAll("Zero thousand", "");
+
 		phrase = phrase.replaceAll("zero", "");
 		phrase = phrase.replaceAll("   ", "").replaceAll("  ", "");
 		phrase = phrase.trim();
